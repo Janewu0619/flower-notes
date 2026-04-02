@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花间笔记 - 让灵感像花一样绽放</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --monet-primary: #6B9BA8;
+            --monet-secondary: #A8C8C8;
+            --monet-accent: #E8D8C8;
+            --monet-light: #D8E8E0;
+            
+            --vangogh-starry-primary: #1E3A5F;
+            --vangogh-starry-secondary: #2E5A8F;
+            --vangogh-starry-accent: #F5D76E;
+            --vangogh-starry-light: #4A7AB0;
+            
+            --sunflower-primary: #D4923A;
+            --sunflower-secondary: #E8B84A;
+            --sunflower-accent: #8B5A2B;
+            --sunflower-light: #F5D89A;
+            
+            --reading-primary: #8B6914;
+            --reading-secondary: #A67C52;
+            --reading-accent: #D4C4A8;
+            --reading-light: #E8DCC8;
+            
+            --text-primary: #3A3A3A;
+            --text-secondary: #6A6A6A;
+            --text-light: #9A9A9A;
+            --bg-cream: #FAF8F5;
+            --card-white: rgba(255, 255, 255, 0.92);
+            --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 夜间模式变量 */
+        body.dark-mode {
+            --text-primary: #E8E4DE;
+            --text-secondary: #B8B4AE;
+            --text-light: #8A8680;
+            --bg-cream: #1A1A1F;
+            --card-white: rgba(35, 35, 42, 0.95);
+            --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: var(--bg-cream);
+            min-height: 100vh;
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-white);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: background 0.3s ease;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.8em;
+            color: var(--text-primary);
+            letter-spacing: 3px;
+        }
+
+        .daily-poem {
+            flex: 1;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 500px;
+        }
+
+        .poem-text {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        .poem-author {
+            font-size: 0.75em;
+            color: var(--text-light);
+            margin-left: 8px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-action-btn {
+            width: 38px;
+            height: 38px;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-action-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle {
+            font-size: 1.2em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-tab {
+            padding: 10px 24px;
+            border: none;
+            background: transparent;
+            border-radius: 25px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab:hover {
+            color: var(--text-primary);
+            background: rgba(0,0,0,0.05);
+        }
+
+        .nav-tab.active {
+            color: var(--text-primary);
+            font-weight: 500;
+            background: rgba(0,0,0,0.08);
+        }
+
+        .nav-stats {
+            display: flex;
+            gap: 25px;
+            font-size: 0.85em;
+            color: var(--text-light);
+        }
+
+        .nav-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .nav-stat:hover {
+            opacity: 0.7;
+        }
+
+        .nav-stat-num {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .main-container {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .category-page {
+            min-height: calc(100vh - 80px);
+            display: none;
+            position: relative;
+        }
+
+        .category-page.active {
+            display: block;
+        }
+
+        .category-bg {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.45;
+            pointer-events: none;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.5s ease;
+            filter: saturate(1.3);
+        }
+
+        .category-page.life .category-bg {
+            background-image: url('https://s.coze.cn/image/iq0K1-UPghs/');
+        }
+
+        .category-page.novel .category-bg {
+            background-image: url('https://s.coze.cn/image/Nh2pIEajEgw/');
+        }
+
+        .category-page.work .category-bg {
+            background-image: url('https://s.coze.cn/image/hIN7bmCgs1g/');
+        }
+
+        .category-page.reading .category-bg {
+            background-image: url('https://s.coze.cn/image/reading-bg/');
+            background-color: #E8DCC8;
+        }
+
+        .category-header {
+            padding: 60px 40px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-title {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 3em;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+        }
+
+        .category-page.life .category-title { color: var(--monet-primary); }
+        .category-page.novel .category-title { color: var(--vangogh-starry-primary); }
+        .category-page.work .category-title { color: var(--sunflower-primary); }
+        .category-page.reading .category-title { color: var(--reading-primary); }
+
+        .category-subtitle {
+            font-size: 1em;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .category-quote {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: var(--text-light);
+            font-style: italic;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .input-section {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 0 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .input-card {
+            background: var(--card-white);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: background 0.3s ease;
+        }
+
+        .category-page.life .input-card { border-top: 4px solid var(--monet-primary); }
+        .category-page.novel .input-card { border-top: 4px solid var(--vangogh-starry-accent); }
+        .category-page.work .input-card { border-top: 4px solid var(--sunflower-primary); }
+        .category-page.reading .input-card { border-top: 4px solid var(--reading-primary); }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            border: none;
+            background: transparent;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.05em;
+            color: var(--text-primary);
+            resize: none;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        textarea:focus { outline: none; }
+        textarea::placeholder { color: var(--text-light); }
+
+        .input-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .tag-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .tag-input {
+            border: none;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 20px;
+            padding: 10px 18px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.9em;
+            color: var(--text-primary);
+            width: 200px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .tag-input:focus {
+            outline: none;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .save-btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.95em;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-page.life .save-btn { background: linear-gradient(135deg, var(--monet-primary), var(--monet-secondary)); }
+        .category-page.novel .save-btn { background: linear-gradient(135deg, var(--vangogh-starry-primary), var(--vangogh-starry-light)); }
+        .category-page.work .save-btn { background: linear-gradient(135deg, var(--sunflower-primary), var(--sunflower-secondary)); }
+        .category-page.reading .save-btn { background: linear-gradient(135deg, var(--reading-primary), var(--reading-secondary)); }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-section {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 0 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            background: var(--card-white);
+            border-radius: 25px;
+            padding: 12px 20px 12px 45px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.9em;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-soft);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .sort-select {
+            border: none;
+            background: var(--card-white);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            transition: background 0.3s ease;
+        }
+
+        .notes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .note-card {
+            background: var(--card-white);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .category-page.life .note-card::before { background: linear-gradient(90deg, var(--monet-primary), var(--monet-secondary)); }
+        .category-page.novel .note-card::before { background: linear-gradient(90deg, var(--vangogh-starry-primary), var(--vangogh-starry-accent)); }
+        .category-page.work .note-card::before { background: linear-gradient(90deg, var(--sunflower-primary), var(--sunflower-secondary)); }
+        .category-page.reading .note-card::before { background: linear-gradient(90deg, var(--reading-primary), var(--reading-accent)); }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .note-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .note-card:hover .note-actions { opacity: 1; }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        .note-content {
+            font-size: 1em;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 18px;
+            word-break: break-word;
+            white-space: pre-wrap;
+            transition: color 0.3s ease;
+        }
+
+        .note-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .note-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .note-tag {
+            background: rgba(0, 0, 0, 0.04);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+
+        .category-page.life .note-tag { background: rgba(107, 155, 168, 0.12); color: var(--monet-primary); }
+        .category-page.novel .note-tag { background: rgba(30, 58, 95, 0.1); color: var(--vangogh-starry-primary); }
+        .category-page.work .note-tag { background: rgba(212, 146, 58, 0.15); color: var(--sunflower-primary); }
+        .category-page.reading .note-tag { background: rgba(139, 105, 20, 0.12); color: var(--reading-primary); }
+
+        .note-date {
+            font-size: 0.8em;
+            color: var(--text-light);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-icon {
+            font-size: 5em;
+            margin-bottom: 25px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .empty-hint {
+            font-size: 0.95em;
+            color: var(--text-light);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-white);
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-overlay.active .modal { transform: scale(1); }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.5em;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .modal-close:hover { background: rgba(0, 0, 0, 0.1); }
+
+        .modal textarea {
+            min-height: 180px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .modal .tag-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .modal-btn.cancel:hover { background: rgba(0, 0, 0, 0.1); }
+
+        .modal-btn.confirm {
+            background: linear-gradient(135deg, var(--monet-primary), var(--monet-secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-btn.confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 年度回顾模态框样式 */
+        .review-modal .modal {
+            max-width: 600px;
+        }
+
+        .review-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .review-stat-card {
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .review-stat-num {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.5em;
+            color: var(--monet-primary);
+            margin-bottom: 5px;
+        }
+
+        .review-stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        .review-category-list {
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .review-category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .review-category-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-category-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+
+        .review-category-count {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .review-tags-section h4 {
+            font-size: 1em;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .review-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .review-tag {
+            background: rgba(107, 155, 168, 0.15);
+            color: var(--monet-primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .review-tag .count {
+            margin-left: 5px;
+            opacity: 0.7;
+            font-size: 0.85em;
+        }
+
+        /* Canvas容器 */
+        .canvas-container {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .nav-tabs { order: 2; flex-wrap: wrap; justify-content: center; }
+            .nav-stats { order: 3; gap: 15px; }
+            .daily-poem { order: 4; max-width: 100%; padding: 10px 0; }
+            .nav-actions { order: 1; }
+            .logo { font-size: 1.5em; }
+            .nav-tab { padding: 8px 16px; font-size: 0.85em; }
+            .main-container { padding-top: 180px; }
+            .category-header { padding: 40px 20px 30px; }
+            .category-title { font-size: 2.2em; }
+            .input-section { padding: 0 20px; }
+            .input-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            .tag-input-wrapper { flex-direction: column; gap: 8px; }
+            .tag-input { width: 100%; }
+            .save-btn { width: 100%; }
+            .filter-section { flex-direction: column; padding: 0 20px; }
+            .search-box { max-width: 100%; width: 100%; }
+            .notes-container { padding: 0 20px 40px; }
+            .notes-grid { grid-template-columns: 1fr; gap: 20px; }
+            .review-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">花间笔记</div>
+            <div class="daily-poem" id="dailyPoem">
+                <span class="poem-text" id="poemText">载入中...</span>
+                <span class="poem-author" id="poemAuthor"></span>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-action-btn theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+                <button class="nav-action-btn" id="exportBtn" title="导出笔记">📤</button>
+                <button class="nav-action-btn" id="reviewBtn" title="年度回顾">📊</button>
+            </div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-category="life">🌸 生活杂记</button>
+                <button class="nav-tab" data-category="novel">🌙 小说灵感</button>
+                <button class="nav-tab" data-category="work">🌻 工作思考</button>
+                <button class="nav-tab" data-category="reading">📚 读书笔记</button>
+            </div>
+            <div class="nav-stats">
+                <div class="nav-stat" id="syncStatus" style="cursor: pointer;" title="点击手动同步">
+                    <span id="syncIcon">☁️</span>
+                    <span id="syncText">已同步</span>
+                </div>
+                <div class="nav-stat">
+                    <span class="nav-stat-num" id="totalCount">0</span>
+                    <span>条笔记</span>
+                </div>
+                <div class="nav-stat">
+                    <span class="nav-stat-num" id="todayCount">0</span>
+                    <span>今日记录</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <!-- 生活杂记 -->
+        <section class="category-page life active" data-category="life">
+            <div class="category-bg"></div>
+            <div class="category-header">
+                <h2 class="category-title">生活杂记</h2>
+                <p class="category-subtitle">记录日常的温柔与细碎</p>
+                <p class="category-quote">"我终于明白，大自然是我们最好的老师。"<br>—— 克劳德·莫奈</p>
+            </div>
+            <div class="input-section">
+                <div class="input-card">
+                    <textarea id="lifeInput" placeholder="记录今天的美好瞬间..."></textarea>
+                    <div class="input-footer">
+                        <div class="tag-input-wrapper">
+                            <input type="text" class="tag-input" id="lifeTags" placeholder="标签（空格分隔）">
+                        </div>
+                        <button class="save-btn" onclick="saveNote('life')">记录</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="lifeSearch" placeholder="搜索..." oninput="filterNotes('life')">
+                </div>
+                <select class="sort-select" id="lifeSort" onchange="filterNotes('life')">
+                    <option value="newest">最新优先</option>
+                    <option value="oldest">最早优先</option>
+                </select>
+            </div>
+            <div class="notes-container">
+                <div class="notes-grid" id="lifeGrid"></div>
+                <div class="empty-state" id="lifeEmpty">
+                    <div class="empty-icon">🌸</div>
+                    <div class="empty-text">还没有记录哦</div>
+                    <div class="empty-hint">写下你的第一条生活笔记吧</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 小说灵感 -->
+        <section class="category-page novel" data-category="novel">
+            <div class="category-bg"></div>
+            <div class="category-header">
+                <h2 class="category-title">小说灵感</h2>
+                <p class="category-subtitle">捕捉夜空中闪烁的故事</p>
+                <p class="category-quote">"我梦想着绘画，然后我画我的梦想。"<br>—— 文森特·梵高</p>
+            </div>
+            <div class="input-section">
+                <div class="input-card">
+                    <textarea id="novelInput" placeholder="记下突然闪现的灵感..."></textarea>
+                    <div class="input-footer">
+                        <div class="tag-input-wrapper">
+                            <input type="text" class="tag-input" id="novelTags" placeholder="标签（空格分隔）">
+                        </div>
+                        <button class="save-btn" onclick="saveNote('novel')">记录</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="novelSearch" placeholder="搜索..." oninput="filterNotes('novel')">
+                </div>
+                <select class="sort-select" id="novelSort" onchange="filterNotes('novel')">
+                    <option value="newest">最新优先</option>
+                    <option value="oldest">最早优先</option>
+                </select>
+            </div>
+            <div class="notes-container">
+                <div class="notes-grid" id="novelGrid"></div>
+                <div class="empty-state" id="novelEmpty">
+                    <div class="empty-icon">🌙</div>
+                    <div class="empty-text">还没有灵感哦</div>
+                    <div class="empty-hint">记下你脑海中的故事</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作思考 -->
+        <section class="category-page work" data-category="work">
+            <div class="category-bg"></div>
+            <div class="category-header">
+                <h2 class="category-title">工作思考</h2>
+                <p class="category-subtitle">在思考中生长的力量</p>
+                <p class="category-quote">"我越来越相信，创造美好是一种慰藉。"<br>—— 文森特·梵高</p>
+            </div>
+            <div class="input-section">
+                <div class="input-card">
+                    <textarea id="workInput" placeholder="记录工作心得与思考..."></textarea>
+                    <div class="input-footer">
+                        <div class="tag-input-wrapper">
+                            <input type="text" class="tag-input" id="workTags" placeholder="标签（空格分隔）">
+                        </div>
+                        <button class="save-btn" onclick="saveNote('work')">记录</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="workSearch" placeholder="搜索..." oninput="filterNotes('work')">
+                </div>
+                <select class="sort-select" id="workSort" onchange="filterNotes('work')">
+                    <option value="newest">最新优先</option>
+                    <option value="oldest">最早优先</option>
+                </select>
+            </div>
+            <div class="notes-container">
+                <div class="notes-grid" id="workGrid"></div>
+                <div class="empty-state" id="workEmpty">
+                    <div class="empty-icon">🌻</div>
+                    <div class="empty-text">还没有记录哦</div>
+                    <div class="empty-hint">记下你的工作思考</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 读书笔记 -->
+        <section class="category-page reading" data-category="reading">
+            <div class="category-bg"></div>
+            <div class="category-header">
+                <h2 class="category-title">读书笔记</h2>
+                <p class="category-subtitle">在文字间寻觅智慧的芬芳</p>
+                <p class="category-quote">"书卷多情似故人，晨昏忧乐每相亲。"<br>—— 于谦</p>
+            </div>
+            <div class="input-section">
+                <div class="input-card">
+                    <textarea id="readingInput" placeholder="记录读书感悟与心得..."></textarea>
+                    <div class="input-footer">
+                        <div class="tag-input-wrapper">
+                            <input type="text" class="tag-input" id="readingTags" placeholder="标签（空格分隔）">
+                        </div>
+                        <button class="save-btn" onclick="saveNote('reading')">记录</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="readingSearch" placeholder="搜索..." oninput="filterNotes('reading')">
+                </div>
+                <select class="sort-select" id="readingSort" onchange="filterNotes('reading')">
+                    <option value="newest">最新优先</option>
+                    <option value="oldest">最早优先</option>
+                </select>
+            </div>
+            <div class="notes-container">
+                <div class="notes-grid" id="readingGrid"></div>
+                <div class="empty-state" id="readingEmpty">
+                    <div class="empty-icon">📚</div>
+                    <div class="empty-text">还没有笔记哦</div>
+                    <div class="empty-hint">记录你的阅读心得吧</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 编辑模态框 -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">编辑笔记</h3>
+                <button class="modal-close" onclick="closeEditModal()">✕</button>
+            </div>
+            <textarea id="editContent"></textarea>
+            <input type="text" class="tag-input" id="editTags" placeholder="标签（空格分隔）">
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeEditModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmEdit()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 年度回顾模态框 -->
+    <div class="modal-overlay review-modal" id="reviewModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">📖 年度回顾</h3>
+                <button class="modal-close" onclick="closeReviewModal()">✕</button>
+            </div>
+            <div class="review-stats" id="reviewStats">
+                <div class="review-stat-card">
+                    <div class="review-stat-num" id="reviewTotalNotes">0</div>
+                    <div class="review-stat-label">总笔记数</div>
+                </div>
+                <div class="review-stat-card">
+                    <div class="review-stat-num" id="reviewTotalWords">0</div>
+                    <div class="review-stat-label">总字数</div>
+                </div>
+            </div>
+            <div class="review-category-list" id="reviewCategoryList"></div>
+            <div class="review-tags-section" id="reviewTagsSection">
+                <h4>🏷️ 最常使用的标签</h4>
+                <div class="review-tags" id="reviewTags"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Canvas容器 -->
+    <div class="canvas-container">
+        <canvas id="shareCanvas"></canvas>
+    </div>
+
+    <script>
+        // Supabase 配置
+        const SUPABASE_URL = 'https://mhvqjxgkuszxryupepun.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1odnFqeGdrdXN6eHJ5dXBlcHVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxMjk3NTMsImV4cCI6MjA5MDcwNTc1M30.Kil7lQ38V31lXhzU0YN1fOjrGMVIbEqmaeHB5PG2mz8';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        let notes = { life: [], novel: [], work: [], reading: [] };
+        let currentCategory = 'life';
+        let editingNote = null;
+
+        // 主题相关
+        const THEME_KEY = 'flower-notes-theme';
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem(THEME_KEY);
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                updateThemeIcon(true);
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+            updateThemeIcon(isDark);
+        }
+
+        function updateThemeIcon(isDark) {
+            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // 经典诗句库（真实可考）
+        const poems = [
+            { text: "采菊东篱下，悠然见南山。", author: "陶渊明" },
+            { text: "人生若只如初见，何事秋风悲画扇。", author: "纳兰性德" },
+            { text: "落花人独立，微雨燕双飞。", author: "晏几道" },
+            { text: "此情可待成追忆，只是当时已惘然。", author: "李商隐" },
+            { text: "山重水复疑无路，柳暗花明又一村。", author: "陆游" },
+            { text: "众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。", author: "辛弃疾" },
+            { text: "人生得意须尽欢，莫使金樽空对月。", author: "李白" },
+            { text: "但愿人长久，千里共婵娟。", author: "苏轼" },
+            { text: "春有百花秋有月，夏有凉风冬有雪。", author: "无门慧开" },
+            { text: "行到水穷处，坐看云起时。", author: "王维" },
+            { text: "竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。", author: "苏轼" },
+            { text: "曾经沧海难为水，除却巫山不是云。", author: "元稹" },
+            { text: "我见青山多妩媚，料青山见我应如是。", author: "辛弃疾" },
+            { text: "醉后不知天在水，满船清梦压星河。", author: "唐温如" },
+            { text: "浮生只合尊前老，雪满长安道。", author: "舒亶" },
+            { text: "晚来天欲雪，能饮一杯无？", author: "白居易" },
+            { text: "春风得意马蹄疾，一日看尽长安花。", author: "孟郊" },
+            { text: "似此星辰非昨夜，为谁风露立中宵。", author: "黄景仁" },
+            { text: "欲买桂花同载酒，终不似，少年游。", author: "刘过" },
+            { text: "人间有味是清欢。", author: "苏轼" },
+            { text: "莫愁前路无知己，天下谁人不识君。", author: "高适" },
+            { text: "海上生明月，天涯共此时。", author: "张九龄" },
+            { text: "花谢花飞花满天，红消香断有谁怜。", author: "曹雪芹" },
+            { text: "落红不是无情物，化作春泥更护花。", author: "龚自珍" },
+            { text: "枝上柳绵吹又少，天涯何处无芳草。", author: "苏轼" },
+            { text: "今人不见古时月，今月曾经照古人。", author: "李白" },
+            { text: "无可奈何花落去，似曾相识燕归来。", author: "晏殊" },
+            { text: "多情自古伤离别，更那堪，冷落清秋节。", author: "柳永" },
+            { text: "两情若是久长时，又岂在朝朝暮暮。", author: "秦观" },
+            { text: "衣带渐宽终不悔，为伊消得人憔悴。", author: "柳永" }
+        ];
+
+        // 显示今日诗句
+        function showDailyPoem() {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+            const poem = poems[dayOfYear % poems.length];
+            
+            document.getElementById('poemText').textContent = poem.text;
+            document.getElementById('poemAuthor').textContent = `—— ${poem.author}`;
+        }
+
+        // 初始化
+        async function init() {
+            initTheme();
+            showDailyPoem(); // 显示今日诗句
+            setupEventListeners();
+            loadFromStorage();
+            renderAllNotes();
+            updateStats();
+            await syncFromCloud();
+        }
+
+        // 设置事件监听
+        function setupEventListeners() {
+            // 导航标签点击
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchCategory(tab.dataset.category);
+                });
+            });
+            
+            // 同步状态点击
+            document.getElementById('syncStatus').addEventListener('click', syncFromCloud);
+            
+            // 主题切换
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            
+            // 导出按钮
+            document.getElementById('exportBtn').addEventListener('click', exportToMarkdown);
+            
+            // 年度回顾按钮
+            document.getElementById('reviewBtn').addEventListener('click', showReviewModal);
+            
+            // 年度回顾模态框点击外部关闭
+            document.getElementById('reviewModal').addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal-overlay')) closeReviewModal();
+            });
+            
+            // 快捷键
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    if (document.getElementById('editModal').classList.contains('active')) {
+                        confirmEdit();
+                    } else {
+                        saveNote(currentCategory);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    closeEditModal();
+                    closeReviewModal();
+                }
+            });
+        }
+
+        // 切换分类
+        function switchCategory(category) {
+            currentCategory = category;
+            
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.category === category);
+            });
+            
+            document.querySelectorAll('.category-page').forEach(page => {
+                page.classList.toggle('active', page.dataset.category === category);
+            });
+        }
+
+        // 同步状态
+        function updateSyncStatus(status) {
+            const icon = document.getElementById('syncIcon');
+            const text = document.getElementById('syncText');
+            const statuses = {
+                syncing: ['🔄', '同步中...'],
+                synced: ['☁️', '已同步'],
+                error: ['⚠️', '同步失败']
+            };
+            [icon.textContent, text.textContent] = statuses[status] || statuses.synced;
+        }
+
+        // 从云端同步
+        async function syncFromCloud() {
+            updateSyncStatus('syncing');
+            try {
+                const { data, error } = await supabaseClient
+                    .from('notes')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                notes = { life: [], novel: [], work: [], reading: [] };
+                data.forEach(row => {
+                    if (notes[row.category]) {
+                        notes[row.category].push({
+                            id: row.id,
+                            content: row.content,
+                            tags: row.tags || [],
+                            createdAt: row.created_at
+                        });
+                    }
+                });
+                
+                saveToStorage();
+                renderAllNotes();
+                updateStats();
+                updateSyncStatus('synced');
+            } catch (error) {
+                console.error('同步失败:', error);
+                updateSyncStatus('error');
+            }
+        }
+
+        // 保存笔记
+        async function saveNote(category) {
+            const input = document.getElementById(`${category}Input`);
+            const tagsInput = document.getElementById(`${category}Tags`);
+            const content = input.value.trim();
+            const tags = tagsInput.value.trim().split(/\s+/).filter(t => t);
+            
+            if (!content) {
+                alert('请输入内容~');
+                return;
+            }
+            
+            const note = {
+                id: Date.now(),
+                content,
+                tags,
+                createdAt: new Date().toISOString()
+            };
+            
+            notes[category].unshift(note);
+            saveToStorage();
+            renderNotes(category);
+            updateStats();
+            
+            // 同步到云端
+            try {
+                await supabaseClient.from('notes').insert([{
+                    id: note.id,
+                    category,
+                    content: note.content,
+                    tags: note.tags,
+                    created_at: note.createdAt
+                }]);
+                updateSyncStatus('synced');
+            } catch (error) {
+                console.error('保存失败:', error);
+                updateSyncStatus('error');
+            }
+            
+            input.value = '';
+            tagsInput.value = '';
+        }
+
+        // 渲染笔记
+        function renderNotes(category) {
+            const grid = document.getElementById(`${category}Grid`);
+            const empty = document.getElementById(`${category}Empty`);
+            const searchTerm = document.getElementById(`${category}Search`).value.toLowerCase();
+            const sortBy = document.getElementById(`${category}Sort`).value;
+            
+            let filtered = notes[category].filter(note =>
+                note.content.toLowerCase().includes(searchTerm) ||
+                note.tags.some(t => t.toLowerCase().includes(searchTerm))
+            );
+            
+            if (sortBy === 'oldest') filtered.reverse();
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            
+            empty.style.display = 'none';
+            grid.innerHTML = filtered.map((note, i) => `
+                <div class="note-card" style="animation-delay: ${i * 0.05}s">
+                    <div class="note-actions">
+                        <button class="action-btn" onclick="shareNote('${category}', ${note.id})" title="分享">📤</button>
+                        <button class="action-btn" onclick="editNote('${category}', ${note.id})">✏️</button>
+                        <button class="action-btn" onclick="deleteNote('${category}', ${note.id})">🗑️</button>
+                    </div>
+                    <div class="note-content">${escapeHtml(note.content)}</div>
+                    <div class="note-footer">
+                        <div class="note-tags">
+                            ${note.tags.map(t => `<span class="note-tag">#${escapeHtml(t)}</span>`).join('')}
+                        </div>
+                        <div class="note-date">${formatDate(note.createdAt)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAllNotes() {
+            ['life', 'novel', 'work', 'reading'].forEach(renderNotes);
+        }
+
+        function filterNotes(category) {
+            renderNotes(category);
+        }
+
+        function editNote(category, id) {
+            const note = notes[category].find(n => n.id === id);
+            if (!note) return;
+            
+            editingNote = { category, id };
+            document.getElementById('editContent').value = note.content;
+            document.getElementById('editTags').value = note.tags.join(' ');
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            editingNote = null;
+        }
+
+        async function confirmEdit() {
+            if (!editingNote) return;
+            
+            const content = document.getElementById('editContent').value.trim();
+            const tags = document.getElementById('editTags').value.trim().split(/\s+/).filter(t => t);
+            
+            if (!content) {
+                alert('内容不能为空~');
+                return;
+            }
+            
+            const noteIndex = notes[editingNote.category].findIndex(n => n.id === editingNote.id);
+            if (noteIndex !== -1) {
+                notes[editingNote.category][noteIndex].content = content;
+                notes[editingNote.category][noteIndex].tags = tags;
+                saveToStorage();
+                
+                try {
+                    await supabaseClient.from('notes')
+                        .update({ content, tags })
+                        .eq('id', editingNote.id);
+                    updateSyncStatus('synced');
+                } catch (error) {
+                    console.error('更新失败:', error);
+                    updateSyncStatus('error');
+                }
+            }
+            
+            closeEditModal();
+            renderNotes(editingNote.category);
+        }
+
+        async function deleteNote(category, id) {
+            if (!confirm('确定要删除这条笔记吗？')) return;
+            
+            notes[category] = notes[category].filter(n => n.id !== id);
+            saveToStorage();
+            renderNotes(category);
+            updateStats();
+            
+            try {
+                await supabaseClient.from('notes').delete().eq('id', id);
+                updateSyncStatus('synced');
+            } catch (error) {
+                console.error('删除失败:', error);
+                updateSyncStatus('error');
+            }
+        }
+
+        function updateStats() {
+            const total = notes.life.length + notes.novel.length + notes.work.length + notes.reading.length;
+            document.getElementById('totalCount').textContent = total;
+            
+            const today = new Date().toDateString();
+            const todayCount = ['life', 'novel', 'work', 'reading'].reduce((sum, cat) =>
+                sum + notes[cat].filter(n => new Date(n.createdAt).toDateString() === today).length, 0
+            );
+            document.getElementById('todayCount').textContent = todayCount;
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('flower-notes-v3', JSON.stringify(notes));
+        }
+
+        function loadFromStorage() {
+            const saved = localStorage.getItem('flower-notes-v3');
+            if (saved) notes = JSON.parse(saved);
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diff = now - date;
+            
+            if (diff < 60000) return '刚刚';
+            if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`;
+            if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`;
+            if (diff < 172800000) return '昨天';
+            return `${date.getMonth() + 1}月${date.getDate()}日`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========== 导出功能 ==========
+        function exportToMarkdown() {
+            const categories = {
+                life: '生活杂记',
+                novel: '小说灵感',
+                work: '工作思考',
+                reading: '读书笔记'
+            };
+
+            let markdown = `# 花间笔记导出
+
+> 导出时间：${new Date().toLocaleString('zh-CN')}
+> 总计 ${notes.life.length + notes.novel.length + notes.work.length + notes.reading.length} 条笔记
+
+---
+
+`;
+
+            for (const [key, name] of Object.entries(categories)) {
+                if (notes[key].length > 0) {
+                    markdown += `## ${name} (${notes[key].length}条)\n\n`;
+                    notes[key].forEach(note => {
+                        markdown += `### ${formatDateForExport(note.createdAt)}\n\n`;
+                        markdown += `${note.content}\n\n`;
+                        if (note.tags.length > 0) {
+                            markdown += `标签：${note.tags.map(t => `#${t}`).join(' ')}\n\n`;
+                        }
+                        markdown += `---\n\n`;
+                    });
+                }
+            }
+
+            // 创建下载
+            const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `花间笔记_${new Date().toISOString().split('T')[0]}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function formatDateForExport(dateStr) {
+            const date = new Date(dateStr);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+        }
+
+        // ========== 年度回顾功能 ==========
+        function showReviewModal() {
+            // 计算统计数据
+            let totalNotes = 0;
+            let totalWords = 0;
+            const categoryStats = {};
+            const tagCounts = {};
+            
+            const categoryNames = {
+                life: { name: '🌸 生活杂记', color: '#6B9BA8' },
+                novel: { name: '🌙 小说灵感', color: '#1E3A5F' },
+                work: { name: '🌻 工作思考', color: '#D4923A' },
+                reading: { name: '📚 读书笔记', color: '#8B6914' }
+            };
+
+            for (const [key, name] of Object.entries(categoryNames)) {
+                const count = notes[key].length;
+                categoryStats[key] = { name: name.name, count, color: name.color };
+                totalNotes += count;
+                
+                notes[key].forEach(note => {
+                    totalWords += note.content.length;
+                    note.tags.forEach(tag => {
+                        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                    });
+                });
+            }
+
+            // 排序标签
+            const sortedTags = Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            // 更新UI
+            document.getElementById('reviewTotalNotes').textContent = totalNotes;
+            document.getElementById('reviewTotalWords').textContent = formatNumber(totalWords);
+
+            // 分类列表
+            const categoryList = document.getElementById('reviewCategoryList');
+            categoryList.innerHTML = Object.entries(categoryStats)
+                .map(([key, stat]) => `
+                    <div class="review-category-item">
+                        <span class="review-category-name">${stat.name}</span>
+                        <span class="review-category-count">${stat.count} 条</span>
+                    </div>
+                `).join('');
+
+            // 标签列表
+            const tagsContainer = document.getElementById('reviewTags');
+            if (sortedTags.length > 0) {
+                tagsContainer.innerHTML = sortedTags
+                    .map(([tag, count]) => `<span class="review-tag">#${escapeHtml(tag)} <span class="count">×${count}</span></span>`)
+                    .join('');
+                document.getElementById('reviewTagsSection').style.display = 'block';
+            } else {
+                document.getElementById('reviewTagsSection').style.display = 'none';
+            }
+
+            document.getElementById('reviewModal').classList.add('active');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.remove('active');
+        }
+
+        function formatNumber(num) {
+            if (num >= 10000) {
+                return (num / 10000).toFixed(1) + '万';
+            }
+            return num.toString();
+        }
+
+        // ========== 生成分享图功能 ==========
+        function shareNote(category, id) {
+            const note = notes[category].find(n => n.id === id);
+            if (!note) return;
+
+            const canvas = document.getElementById('shareCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // 设置画布大小
+            canvas.width = 600;
+            canvas.height = 400;
+
+            // 分类颜色
+            const categoryColors = {
+                life: { primary: '#6B9BA8', secondary: '#A8C8C8', name: '生活杂记' },
+                novel: { primary: '#1E3A5F', secondary: '#2E5A8F', name: '小说灵感' },
+                work: { primary: '#D4923A', secondary: '#E8B84A', name: '工作思考' },
+                reading: { primary: '#8B6914', secondary: '#A67C52', name: '读书笔记' }
+            };
+
+            const colors = categoryColors[category] || categoryColors.life;
+
+            // 绘制背景
+            const gradient = ctx.createLinearGradient(0, 0, 600, 400);
+            gradient.addColorStop(0, '#FAF8F5');
+            gradient.addColorStop(1, '#E8DCC8');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 600, 400);
+
+            // 绘制装饰边框
+            ctx.strokeStyle = colors.primary;
+            ctx.lineWidth = 3;
+            ctx.strokeRect(20, 20, 560, 360);
+
+            // 绘制顶部装饰线
+            const lineGradient = ctx.createLinearGradient(100, 0, 500, 0);
+            lineGradient.addColorStop(0, 'transparent');
+            lineGradient.addColorStop(0.5, colors.primary);
+            lineGradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = lineGradient;
+            ctx.fillRect(100, 50, 400, 2);
+
+            // 绘制标题
+            ctx.fillStyle = colors.primary;
+            ctx.font = 'bold 24px "Ma Shan Zheng", cursive';
+            ctx.textAlign = 'center';
+            ctx.fillText(`📝 ${colors.name}`, 300, 90);
+
+            // 绘制笔记内容
+            ctx.fillStyle = '#3A3A3A';
+            ctx.font = '18px "Noto Serif SC", serif';
+            ctx.textAlign = 'left';
+            
+            const maxWidth = 520;
+            const lineHeight = 28;
+            const startY = 130;
+            const content = note.content;
+            
+            // 自动换行
+            let line = '';
+            let y = startY;
+            for (let i = 0; i < content.length; i++) {
+                const testLine = line + content[i];
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && i > 0) {
+                    ctx.fillText(line, 40, y);
+                    line = content[i];
+                    y += lineHeight;
+                    if (y > 280) break;
+                } else {
+                    line = testLine;
+                }
+            }
+            if (y <= 280 && line) {
+                ctx.fillText(line, 40, y);
+            }
+
+            // 绘制底部装饰线
+            ctx.fillStyle = lineGradient;
+            ctx.fillRect(100, 320, 400, 2);
+
+            // 绘制标签
+            if (note.tags.length > 0) {
+                ctx.fillStyle = colors.secondary;
+                ctx.font = '14px "Noto Serif SC", serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(note.tags.map(t => `#${t}`).join(' '), 300, 350);
+            }
+
+            // 绘制底部水印
+            ctx.fillStyle = '#9A9A9A';
+            ctx.font = '12px "Noto Serif SC", serif';
+            ctx.textAlign = 'right';
+            ctx.fillText('—— 花间笔记', 560, 370);
+
+            // 下载图片
+            const link = document.createElement('a');
+            link.download = `花间笔记_${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // 启动
+        init();
+    </script>
+</body>
+</html>
